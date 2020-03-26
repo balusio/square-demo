@@ -10,5 +10,15 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "webpack": "^4.42.1",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^8.1.0",
+    "eslint-loader": "^3.0.3",
+    "webpack-dev-server": "^3.10.3",
+    "uglifyjs-webpack-plugin": "^2.2.0"
   }
 }

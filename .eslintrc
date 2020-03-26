@@ -1,0 +1,33 @@
+{
+  "extends": "airbnb",
+  "plugins": [
+    "import"
+  ],
+  "settings": {
+    "import/resolver": {
+      "webpack": {
+        "config" : "tasks/webpack.config.js"
+      }
+    }
+  },
+  "rules": {
+    "arrow-body-style" : "off",
+    "func-names": ["error", "never"],
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "no-confusing-arrow": 0,
+    "semi": 0,
+    "no-case-declarations": 0,
+    "no-underscore-dangle": 0,
+    "no-nested-ternary": 0,
+    "import/no-extraneous-dependencies": 0,
+    "max-len": ["error", 120],
+    "import/prefer-default-export": 0,
+    "camelcase": 0,
+    "no-plusplus": 0,
+    "no-unused-vars":"warn"
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  }
+}
