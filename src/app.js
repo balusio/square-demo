@@ -1,6 +1,7 @@
 
 const SQUARE_LIST = [];
 const SQUARE_SIZE = 50;
+const RANGE_SPEED = 10;
 
 /**
  * @return a random Number between ranges
@@ -27,8 +28,8 @@ class Square {
     this.size = SQUARE_SIZE;
     this.x = position.x;
     this.y = position.y;
-    this.dx = getRandomPosition(-10, 10);
-    this.dy = getRandomPosition(-10, 10);
+    this.dx = getRandomPosition(-RANGE_SPEED, RANGE_SPEED);
+    this.dy = getRandomPosition(-RANGE_SPEED, RANGE_SPEED);
     this.bodyWindow = document.body;
     this.initialize();
   }
@@ -108,8 +109,8 @@ const main = () => {
     // this will prevent the loop check if the position it's at the same level than the border of the screen
     // and move it on the oposite way
     new Square({
-      x: getRandomPosition(0,window.innerWidth - SQUARE_SIZE),
-      y: getRandomPosition(0,window.innerHeight - SQUARE_SIZE),
+      x: getRandomPosition(0, window.innerWidth - SQUARE_SIZE),
+      y: getRandomPosition(0, window.innerHeight - SQUARE_SIZE),
     }),
   )
 };

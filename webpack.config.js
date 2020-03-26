@@ -8,7 +8,7 @@ module.exports = {
       {
         test: /\.(js)$/,
         exclude: /node_modules/,
-        use: ['babel-loader']
+        use: ['babel-loader'],
       },
       {
         enforce: 'pre',
@@ -20,16 +20,16 @@ module.exports = {
             emitError: true,
           },
         }],
-      },     
-    ]
+      },
+    ],
   },
   resolve: {
-    extensions: ['*', '.js']
+    extensions: ['*', '.js'],
   },
   output: {
     path: __dirname + '/public',
     publicPath: '/',
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -37,7 +37,7 @@ module.exports = {
         collapseWhitespace: true,
       },
       hash: true,
-      template: path.resolve(__dirname, '/src/assets/index.html'),
+      template: path.resolve(__dirname, 'src/assets/index.html'),
     }),
   ],
   devServer: {
