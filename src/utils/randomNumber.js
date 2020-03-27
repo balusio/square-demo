@@ -6,5 +6,6 @@ export default function getRandomNumber(minRange, maxRange) {
   const min = Math.ceil(minRange);
   const max = Math.floor(maxRange);
   const random = Math.floor(Math.random() * (max - min)) + min;
+  // if the random is 0 will recall again
   return random === 0 ? getRandomNumber(minRange, maxRange) : random;
 }

@@ -20,7 +20,11 @@ const main = () => {
   canvas.addEventListener('click', (e) => {
     SquareClickDetection(e, SQUARE_LIST, context)
   })
-
+  /**
+   * this is where the drawing of the canvas occurs it uses the global SQUARE_LIST array
+   * to redraw each square on his coordinates, uses the requestAnimationFrame to have a better
+   * performance and avoid inconsistencies between browsers frame limits
+   */
   const loop = () => {
     context.clearRect(0, 0, window.innerWidth, window.innerHeight);
     SQUARE_LIST.forEach((square) => {

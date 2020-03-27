@@ -3,6 +3,10 @@ import Square from 'components/square'
 import { SQUARE_LIST, SQUARE_SIZE } from 'utils/globals'
 import getRandomNumber from 'utils/randomNumber'
 
+/**
+ * this functions handles the click event and if a square has been clicked (hitted)
+ * it will add it to the global SQUARE_LIST array to be draw it on the main loop
+*/
 export default ({ clientX, clientY }, arraySquares, context) => {
   const hittedSquare = getSquareElem(arraySquares, {
     x: clientX,

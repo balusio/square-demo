@@ -1,13 +1,13 @@
 import getRandomNumber from 'utils/randomNumber'
-import { SQUARE_LIST, RANGE_SPEED } from 'utils/globals'
+import { RANGE_SPEED } from 'utils/globals'
 
 /**
- * @class Square creates a Square instance into the DOM
- * add listener to be cloned on click event
- * and animates the square trought the screen
+ * @class Square creates a Square instance into the canvas context and
+ * make the reposition on the canvas based on the velocity
  * @param {Object} position
  * @param {number} position.x
  * @param {number} posiition.y
+ * @param {Object} context canvas API context
  */
 export default class Square {
   constructor(position, context) {
@@ -24,14 +24,6 @@ export default class Square {
   }
 
   /**
-   * initialize square and Animation movement
-   */
-  initialize() {
-    this.createSquare();
-    this.createMovement();
-  }
-
-  /**
    * the square gets created and added to the global SQUARE_LIST array,
    * and draw on the main loop
    */
@@ -44,18 +36,11 @@ export default class Square {
     )
   }
 
-  duplicate() {
-    SQUARE_LIST.push(
-      new Square({
-        x: this.x,
-        y: this.y,
-      }),
-    );
-  }
-
+  /**
+   * the direction is the position that sum or rest where the axis of the square will be draw on the canvas
+   * if it gets to the boundaries of the page will start to rest the axis position where the square is attached
+   */
   createMovement() {
-    // handle the movement based on a direction instead of the position
-    // this gives you the change to pivot on the desired borders
     if ((this.x + this.size) >= this.rightBorder - this.dx
     || this.x + this.dx <= 0) {
       this.dx = -this.dx;
