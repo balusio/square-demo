@@ -1,10 +1,10 @@
 import getSquareElem from 'utils/getSquareElem'
 import Square from 'components/square'
 import { SQUARE_LIST, SQUARE_SIZE } from 'utils/globals'
+import getRandomNumber from 'utils/randomNumber'
 
 export default ({ clientX, clientY }, arraySquares, context) => {
-  const checkArray = (arraySquares.length >= 25) ? arraySquares.reverse() : arraySquares
-  const hittedSquare = getSquareElem(checkArray, {
+  const hittedSquare = getSquareElem(arraySquares, {
     x: clientX,
     y: clientY,
   })
@@ -12,7 +12,7 @@ export default ({ clientX, clientY }, arraySquares, context) => {
     SQUARE_LIST.push(new Square({
       x: hittedSquare.x,
       y: hittedSquare.y,
-      size: SQUARE_SIZE,
+      size: getRandomNumber(1, SQUARE_SIZE),
     }, context))
   }
 }
