@@ -1,7 +1,7 @@
 import getRandomNumber from 'utils/randomNumber'
 import Square from 'components/square'
 import { SQUARE_LIST, SQUARE_SIZE } from 'utils/globals'
-import SquareClickDetection from 'events/SquareClickDetection'
+import SquareClickDetection from 'handlers/SquareClickDetection'
 
 const main = () => {
   const canvas = document.getElementById('canvasElem');
@@ -16,15 +16,8 @@ const main = () => {
   SQUARE_LIST.push(firstSquare)
 
   canvas.addEventListener('click', (e) => {
-    SquareClickDetection(e, SQUARE_LIST)
+    SquareClickDetection(e, SQUARE_LIST, context)
   })
-
-  const secondSquare = new Square({
-    x: getRandomNumber(0, window.innerWidth - SQUARE_SIZE),
-    y: getRandomNumber(0, window.innerHeight - SQUARE_SIZE),
-    size: SQUARE_SIZE,
-  }, context);
-  SQUARE_LIST.push(secondSquare)
 
   const loop = () => {
     context.clearRect(0, 0, window.innerWidth, window.innerHeight);

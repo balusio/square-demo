@@ -26,7 +26,7 @@ module.exports = {
   resolve: {
     extensions: ['*', '.js'],
     alias: {
-      events: path.resolve(__dirname, 'src/events'),
+      handlers: path.resolve(__dirname, 'src/event-handlers'),
       utils: path.resolve(__dirname, 'src/utils'),
       components: path.resolve(__dirname, 'src/components'),
     },
