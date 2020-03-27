@@ -1,118 +1,43 @@
-
-const SQUARE_LIST = [];
-const SQUARE_SIZE = 50;
-const RANGE_SPEED = 10;
-
-/**
- * @return a random Number between ranges
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-*/
-const getRandomPosition = (minRange, maxRange) => {
-  const min = minRange;
-  const max = Math.floor(maxRange);
-  const random = Math.floor(Math.random() * (max - min)) + min;
-  return random === 0 ? getRandomPosition(minRange, maxRange) : random;
-}
-
-/**
- * @class Square creates a Square instance into the DOM
- * add listener to be cloned on click event
- * and animates the square trought the screen
- * @param {Object} position
- * @param {number} position.x
- * @param {number} posiition.y
- */
-class Square {
-  constructor(position) {
-    this.square = null;
-    this.size = SQUARE_SIZE;
-    this.x = position.x;
-    this.y = position.y;
-    this.dx = getRandomPosition(-RANGE_SPEED, RANGE_SPEED);
-    this.dy = getRandomPosition(-RANGE_SPEED, RANGE_SPEED);
-    this.bodyWindow = document.body;
-    this.initialize();
-  }
-
-  /**
-   * initialize square and Animation movement
-   */
-  initialize() {
-    this.createSquare();
-    this.createMovement();
-  }
-
-  /**
-   * the square gets created and added to the DOM, is using CSS related to
-   * transform3D for hardware acceleration ( backface-visibility and perspective are related to
-   * this based on performance) Background color gets generated based on a random set of numbers
-   * and letter with a range of 6 numbers ( with hexa definition for colors)
-   */
-  createSquare() {
-    this.square = document.createElement('div');
-    this.square.setAttribute('style', `
-      position:absolute; 
-      left:${this.x}px;
-      top: ${this.y}px;
-      width: ${this.size}px;
-      height: ${this.size}px;
-      transform: translate3d(0, 0, 0);
-      backface-visibility: hidden;
-      perspective: 1000;
-      background-color: #${Math.random().toString(16).substr(2, 6)}`);
-    document.body.append(this.square);
-    // use arrow function for the use this inside the scope of the click
-    this.square.addEventListener('click', () => {
-      this.duplicate();
-    });
-  }
-
-  duplicate() {
-    SQUARE_LIST.push(
-      new Square({
-        x: this.x,
-        y: this.y,
-      }),
-    );
-  }
-
-  createMovement() {
-    const rightBorder = window.innerWidth;
-    const bottomBorder = window.innerHeight;
-    // handle the movement based on a direction instead of the position
-    // this gives you the change to pivot on the desired borders
-    if ((this.x + this.size) >= rightBorder - this.dx
-    || this.x + this.dx <= 0) {
-      this.dx = -this.dx;
-    } else {
-      this.dx = +this.dx;
-    }
-    if ((this.y + this.size) >= bottomBorder - this.dy || this.y + this.dy <= 0) {
-      this.dy = -this.dy;
-    } else {
-      this.dy = +this.dy;
-    }
-    this.x += this.dx;
-    this.y += this.dy;
-    this.square.style.left = `${this.x}px`;
-    this.square.style.top = `${this.y}px`;
-    // requestAnimationFrame  use arrow function to use the scope of the class inside the frame animation
-    requestAnimationFrame(() => {
-      this.createMovement();
-    });
-  }
-}
+import getRandomNumber from 'utils/randomNumber'
+import Square from 'components/square'
+import { SQUARE_LIST, SQUARE_SIZE } from 'utils/globals'
+import SquareClickDetection from 'events/SquareClickDetection'
 
 const main = () => {
-  SQUARE_LIST.push(
-    // Draw the squares in a random position but prevent draw it farthest than the borders of the screen,
-    // this will prevent the loop check if the position it's at the same level than the border of the screen
-    // and move it on the oposite way
-    new Square({
-      x: getRandomPosition(0, window.innerWidth - SQUARE_SIZE),
-      y: getRandomPosition(0, window.innerHeight - SQUARE_SIZE),
-    }),
-  )
+  const canvas = document.getElementById('canvasElem');
+  const context = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const firstSquare = new Square({
+    x: getRandomNumber(0, window.innerWidth - SQUARE_SIZE),
+    y: getRandomNumber(0, window.innerHeight - SQUARE_SIZE),
+    size: SQUARE_SIZE,
+  }, context);
+  SQUARE_LIST.push(firstSquare)
+
+  canvas.addEventListener('click', (e) => {
+    SquareClickDetection(e, SQUARE_LIST)
+  })
+
+  const secondSquare = new Square({
+    x: getRandomNumber(0, window.innerWidth - SQUARE_SIZE),
+    y: getRandomNumber(0, window.innerHeight - SQUARE_SIZE),
+    size: SQUARE_SIZE,
+  }, context);
+  SQUARE_LIST.push(secondSquare)
+
+  const loop = () => {
+    context.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    SQUARE_LIST.forEach((square) => {
+      context.fillStyle = square.color
+      square.createMovement()
+      square.draw()
+    });
+    requestAnimationFrame(() => {
+      loop();
+    });
+  }
+  loop()
 };
 
 window.addEventListener('load', main);

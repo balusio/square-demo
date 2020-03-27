@@ -25,9 +25,14 @@ module.exports = {
   },
   resolve: {
     extensions: ['*', '.js'],
+    alias: {
+      events: path.resolve(__dirname, 'src/events'),
+      utils: path.resolve(__dirname, 'src/utils'),
+      components: path.resolve(__dirname, 'src/components'),
+    },
   },
   output: {
-    path: __dirname + '/public',
+    path: path.resolve(__dirname, './public'),
     publicPath: '/',
     filename: 'bundle.js',
   },
@@ -45,4 +50,5 @@ module.exports = {
     compress: true,
     port: 4200,
   },
+  devtool: '#eval-source-map',
 };
