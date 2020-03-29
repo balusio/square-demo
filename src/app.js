@@ -1,7 +1,7 @@
 import getRandomNumber from 'utils/randomNumber'
 import Square from 'components/square'
 import { SQUARE_LIST, SQUARE_SIZE } from 'utils/globals'
-import SquareClickDetection from 'handlers/SquareClickDetection'
+import SquareClickDetection from 'handlers/squareClickDetection'
 
 console.log('%c BALU WAS HERE', 'color: #FFFFFF; font-style: bold; background-color: #000000;padding: 20px');
 
